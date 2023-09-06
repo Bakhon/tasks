@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\TaskRequest;
+use App\Http\Resources\TaskResource;
 
 
 class TaskController extends Controller
@@ -14,14 +15,14 @@ class TaskController extends Controller
     public function __construct()
     {
         $this->tasks = [
-            1 => [
+           1 =>  [
                 'id' => 1,
                 'title' => 'Подготовить ужин',
                 'description' => 'Приготовить суп из курицы',
                 'status' => 'в процессе',
                 'created_at' => now(),
             ],
-            2 => [
+          2 =>  [
                 'id' => 2,
                 'title' => 'Сходить в магазин',
                 'description' => 'Необходимо купить теплые вещи',
@@ -135,7 +136,7 @@ class TaskController extends Controller
     {
         if (isset($this->tasks[$id])) {
             unset($this->tasks[$id]);
-            return response()->json(['message' => 'Задача удалена']);
+            return response()->json($this->tasks);
         } 
             return response()->json(['error' => 'Задача не найдена'], 404);
     }
